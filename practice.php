@@ -33,7 +33,7 @@
                         <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
                     </div>
                     <?php
-                    // Include config file
+                    // Include connection file
                     require_once "connection.php";
                     
                     // Attempt select query execution
@@ -66,7 +66,7 @@
                                 }
                                 echo "</tbody>";                            
                             echo "</table>";
-                            // Free result set
+
                             mysqli_free_result($result);
                         } else{
                             echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
