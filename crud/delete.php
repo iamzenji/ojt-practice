@@ -1,19 +1,17 @@
 <?php
-// Process delete operation after confirmation
+// get the id and delete
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
     //connection
     require_once "connection.php";
-    // Prepare a delete statement
+    // delete statement get id
     $sql = "DELETE FROM employees WHERE id = ?";
 
     if ($stmt = mysqli_prepare($conn, $sql)) {
-        // Bind variables to the prepared statement as parameters
+        // Bind param get id
         mysqli_stmt_bind_param($stmt, "i", $param_id);
 
-        // Set parameters
         $param_id = trim($_POST["id"]);
 
-        // Attempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
             // Records deleted successfully. Redirect to landing page
             header("location: practice.php");
@@ -27,9 +25,8 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     // Close connection
     mysqli_close($conn);
 } else {
-    // Check existence of id parameter
+    // error
     if (empty(trim($_GET["id"]))) {
-        // URL doesn't contain id parameter. Redirect to error page
         header("location: error.php");
         exit();
     }

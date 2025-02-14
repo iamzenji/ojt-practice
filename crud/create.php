@@ -7,7 +7,7 @@ $name = $address = $salary = "";
 $name_err = $address_err = $salary_err = "";
 $success = null;
 
-// Processing form data when form is submitted
+// input post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate name
     $input_name = trim($_POST["name"]);
@@ -36,22 +36,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $salary = $input_salary;
     }
 
-    // Check input errors before inserting in database
+    // Check input errors
     if (empty($name_err) && empty($address_err) && empty($salary_err)) {
         // Prepare an insert statement
         $sql = "INSERT INTO employees (name, address, salary) VALUES (?, ?, ?)";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
-            // Bind variables to the prepared statement as parameters
+            // Bind param for passing data into database
             mysqli_stmt_bind_param($stmt, "sss", $param_name, $param_address, $param_salary);
-
-            // Set parameters
+            // var param
             $param_name = $name;
             $param_address = $address;
             $param_salary = $salary;
 
             if (mysqli_stmt_execute($stmt)) {
-                // Records created successfully.
                 $success = true;
             } else {
                 echo "Oops! Something went wrong. Please try again later.";

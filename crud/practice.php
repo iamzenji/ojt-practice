@@ -22,10 +22,10 @@
                         <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
                     </div>
                     <?php
-                    // Include connection file
+                    // connection
                     require_once "connection.php";
 
-                    // Attempt select query execution
+                    // select and read data
                     $sql = "SELECT * FROM employees";
                     if ($result = mysqli_query($conn, $sql)) {
                         if (mysqli_num_rows($result) > 0) {
@@ -40,6 +40,7 @@
                             echo "</tr>";
                             echo "</thead>";
                             echo "<tbody>";
+                            // fetch data
                             while ($row = mysqli_fetch_array($result)) {
                                 echo "<tr>";
                                 echo "<td>" . $row['id'] . "</td>";

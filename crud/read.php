@@ -1,27 +1,23 @@
 <?php
-// Check existence of id parameter before processing further
+// get data and read
 if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     // Connection
     require_once "connection.php";
-
-    // Prepare a select statement
+    // select employee
     $sql = "SELECT * FROM employees WHERE id = ?";
-
+    // prepare to read the data
     if ($stmt = mysqli_prepare($conn, $sql)) {
-        // Bind variables to the prepared statement as parameters
         mysqli_stmt_bind_param($stmt, "i", $param_id);
 
-        // Set parameters
         $param_id = trim($_GET["id"]);
-
-        // Attempt to execute the prepared statement
+        // execute data
         if (mysqli_stmt_execute($stmt)) {
             $result = mysqli_stmt_get_result($stmt);
 
             if (mysqli_num_rows($result) == 1) {
-                //  Fetch result row
+                //  Fetch data
                 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                // Retrieve individual field value
+                // Retrieve data
                 $name = $row["name"];
                 $address = $row["address"];
                 $salary = $row["salary"];
